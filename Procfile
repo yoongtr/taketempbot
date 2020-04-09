@@ -1,1 +1,1 @@
-web: python herokubot.py
+web: python taketemp2.py
