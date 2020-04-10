@@ -4,6 +4,7 @@ Created on Thu Apr  9 21:03:50 2020
 
 @author: Admin
 """
+import datetime
 import os
 import logging
 import telegram.ext
@@ -65,13 +66,30 @@ def callback_alarm2(context: telegram.ext.CallbackContext):
 
 def callback_timer2(update: telegram.Update, context: telegram.ext.CallbackContext):
     context.bot.send_message(chat_id=update.message.chat_id,
-                             text='Bugging you every 10s with...')
-    context.job_queue.run_repeating(callback_alarm2, 10, context=update.message.chat_id)
-
-def stop_updater():
-    updater.stop()
+                             text='Bugging you every 3s with...')
+    context.job_queue.run_repeating(callback_alarm2, 3, context=update.message.chat_id)
+   
+def stop_job(update, context):
+    context.bot.send_message(chat_id=update.message.chat_id,
+                             text='Stopping...')
+    context.job_queue.stop()
     
+def fake_stop1(update, context):
+    context.bot.send_message(chat_id=update.effective_chat.id, 
+                             text="Say please stop!:P")
+    
+def fake_stop2(update, context):
+    context.bot.send_message(chat_id=update.effective_chat.id, 
+                             text="Deo stop lam gi nhau >:|")
+    
+def daily_reminder_message(update, context):
+    context.bot.send_message(chat_id=update.effective_chat.id, 
+                             text="orhor")
 
+def daily_reminder(update, context):
+    context.bot.send_message(chat_id=update.message.chat_id,
+                             text='Setting a daily reminder at hh:mm:ss')
+    context.job_queue.run_daily(daily_reminder_message, time = datetime.time(15,14,00))
 
 if __name__ == "__main__":
     updater = Updater(token='1230478984:AAEVrxbJxXo3vpX2ChbpM5qcDxLFdusziNQ', use_context=True)
@@ -127,13 +145,22 @@ if __name__ == "__main__":
     nani_handler = CommandHandler('nani', callback_timer2)
     dispatcher.add_handler(nani_handler)
 
-    stop_handler = CommandHandler('stop', stop_updater)
+    stop_handler = CommandHandler('pleasestop', stop_job, pass_job_queue=True)
     dispatcher.add_handler(stop_handler)
     
+    fakestop_handler1 = CommandHandler('stop', fake_stop1)
+    dispatcher.add_handler(fakestop_handler1)
+    
+    fakestop_handler2 = CommandHandler('dumastop', fake_stop2)
+    dispatcher.add_handler(fakestop_handler2)
+    
+    daily_reminder_handler = CommandHandler('reminder', daily_reminder)
+    dispatcher.add_handler(daily_reminder_handler)
     
     """updater.start_polling()
     updater.idle()
     updater.stop()"""
+    
     # Start the webhook
     updater.start_webhook(listen="0.0.0.0",
                           port=int(PORT),
