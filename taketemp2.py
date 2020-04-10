@@ -97,8 +97,8 @@ def daily_reminder_message(update, context):
 
 def daily_reminder(update, context):
     context.bot.send_message(chat_id=update.message.chat_id,
-                             text='Setting a daily reminder at hh:mm:ss')
-    context.job_queue.run_daily(daily_reminder_message, time = datetime.time(15,14,00))
+                             text='Setting a daily reminder at 09:00:00')
+    context.job_queue.run_daily(daily_reminder_message, time = datetime.time(9,00,00), context=update.message.chat_id)
 
 if __name__ == "__main__":
     updater = Updater(token='1230478984:AAEVrxbJxXo3vpX2ChbpM5qcDxLFdusziNQ', use_context=True)
