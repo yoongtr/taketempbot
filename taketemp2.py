@@ -67,6 +67,9 @@ def callback_timer2(update: telegram.Update, context: telegram.ext.CallbackConte
     context.bot.send_message(chat_id=update.message.chat_id,
                              text='Bugging you every 10s with...')
     context.job_queue.run_repeating(callback_alarm2, 10, context=update.message.chat_id)
+
+def stop_updater():
+    updater.stop()
     
 
 
@@ -123,6 +126,9 @@ if __name__ == "__main__":
 
     nani_handler = CommandHandler('nani', callback_timer2)
     dispatcher.add_handler(nani_handler)
+
+    stop_handler = CommandHandler('stop', stop_updater)
+    dispatcher.add_handler(stop_handler)
     
     
     """updater.start_polling()
