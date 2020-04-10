@@ -60,6 +60,14 @@ def callback_timer(update: telegram.Update, context: telegram.ext.CallbackContex
                              text='Setting a timer for every 12h!')
     context.job_queue.run_repeating(callback_alarm, 43200, context=update.message.chat_id)
 
+def callback_alarm2(context: telegram.ext.CallbackContext):
+    context.bot.send_message(chat_id=context.job.context, text='Omae wa mou shindeiru!')
+
+def callback_timer2(update: telegram.Update, context: telegram.ext.CallbackContext):
+    context.bot.send_message(chat_id=update.message.chat_id,
+                             text='Bugging you every 10s with...')
+    context.job_queue.run_repeating(callback_alarm2, 43200, context=update.message.chat_id)
+
 
 if __name__ == "__main__":
     updater = Updater(token='1230478984:AAEVrxbJxXo3vpX2ChbpM5qcDxLFdusziNQ', use_context=True)
@@ -111,6 +119,9 @@ if __name__ == "__main__":
     
     timer_handler = CommandHandler('timer', callback_timer)
     dispatcher.add_handler(timer_handler)
+
+    nani_handler = CommandHandler('nani', callback_timer2)
+    dispatcher.add_handler(nani_handler)
     
     
     """updater.start_polling()
