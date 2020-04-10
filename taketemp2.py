@@ -12,7 +12,16 @@ from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 
 def start(update, context):
     context.bot.send_message(chat_id=update.effective_chat.id, 
-                             text="I'm a bot that reminds you to take temperature!")
+                             text="""I'm a bot that reminds you to take temperature!\n 
+                             Try /timer to set a reminder every 12 hours, or /nani for fun ;;)!\n 
+                             Alternatively you can try these commands:\n
+                             /info \n
+                             /austin \n
+                             /yoong \n
+                             /andy \n
+                             /duong \n
+                             ...\n
+                             and so on! See if you can find all the hidden commands! :x""")
     
 def info(update, context):
     context.bot.send_message(chat_id=update.effective_chat.id, 
