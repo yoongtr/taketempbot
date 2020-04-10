@@ -66,7 +66,8 @@ def callback_alarm2(context: telegram.ext.CallbackContext):
 def callback_timer2(update: telegram.Update, context: telegram.ext.CallbackContext):
     context.bot.send_message(chat_id=update.message.chat_id,
                              text='Bugging you every 10s with...')
-    context.job_queue.run_repeating(callback_alarm2, 43200, context=update.message.chat_id)
+    context.job_queue.run_repeating(callback_alarm2, 10, context=update.message.chat_id)
+    
 
 
 if __name__ == "__main__":
