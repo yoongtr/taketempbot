@@ -10,52 +10,55 @@ import logging
 import telegram.ext
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 
+HEROKU_TOKEN = 'token' # change to your token on Heroku
+HEROKU_APPNAME = 'appname' # change to your Heroku appname
+
 def start(update, context):
     context.bot.send_message(chat_id=update.effective_chat.id, 
                              text="""I'm a bot that reminds you to take temperature!\n 
                              Try /timer to set a reminder every 12 hours, or /nani for fun ;;)!\n 
                              Alternatively you can try these commands:\n
                              /info \n
-                             /austin \n
-                             /yoong \n
-                             /andy \n
-                             /duong \n
+                             /name1 \n
+                             /name2 \n
+                             /name3 \n
+                             /name4 \n
                              ...\n
                              and so on! See if you can find all the hidden commands! :x""")
     
 def info(update, context):
     context.bot.send_message(chat_id=update.effective_chat.id, 
-                             text="Nha minh co 7 nguoi: Austin, Yoong, Andy, Hung, LG, Dang va Duong")
+                             text="Yo whatsup")
     
 def covid(update, context):
     context.bot.send_message(chat_id=update.effective_chat.id, 
                              text="Coronavirus!")
     
-def austin(update, context):
+def name1(update, context):
     context.bot.send_message(chat_id=update.effective_chat.id, 
-                             text="GEHHHHH!")
+                             text="loves apple")
     
-def yoong(update, context):
+def name2(update, context):
     context.bot.send_message(chat_id=update.effective_chat.id, 
-                             text="Xinh dep ahihi!")
+                             text="loves potato")
     
-def andy(update, context):
+def name3(update, context):
     context.bot.send_message(chat_id=update.effective_chat.id, 
-                             text="Xam bm!")
+                             text="loves broccoli")
     
-def hung(update, context):
+def name4(update, context):
     context.bot.send_message(chat_id=update.effective_chat.id, 
-                             text="nhamquochung!")
+                             text="loves salmon")
     
-def lg(update, context):
+def name5(update, context):
     context.bot.send_message(chat_id=update.effective_chat.id, 
-                             text="CHIHAI")
+                             text="loves dogs")
     
-def dang(update, context):
+def name6(update, context):
     context.bot.send_message(chat_id=update.effective_chat.id, 
-                             text="deng deng deng!")
+                             text="loves cats")
     
-def duong(update, context):
+def name7(update, context):
     context.bot.send_message(chat_id=update.effective_chat.id, 
                              text="fun-sized")
     
@@ -89,7 +92,7 @@ def fake_stop1(update, context):
     
 def fake_stop2(update, context):
     context.bot.send_message(chat_id=update.effective_chat.id, 
-                             text="Deo stop lam gi nhau >:|")
+                             text="Meh")
     
 def daily_reminder_message(update, context):
     context.bot.send_message(chat_id=update.effective_chat.id, 
@@ -101,10 +104,10 @@ def daily_reminder(update, context):
     context.job_queue.run_daily(daily_reminder_message, time = datetime.time(9,00,00), context=update.message.chat_id)
 
 if __name__ == "__main__":
-    updater = Updater(token='1230478984:AAEVrxbJxXo3vpX2ChbpM5qcDxLFdusziNQ', use_context=True)
+    updater = Updater(token=HEROKU_TOKEN, use_context=True)
     dispatcher = updater.dispatcher
-    TOKEN = "1230478984:AAEVrxbJxXo3vpX2ChbpM5qcDxLFdusziNQ"
-    NAME = "taketemp"
+    TOKEN = HEROKU_TOKEN
+    NAME = HEROKU_APPNAME
     
     # Port is given by Heroku
     PORT = os.environ.get('PORT')
@@ -124,25 +127,25 @@ if __name__ == "__main__":
     covid_handler = CommandHandler('covid', covid)
     dispatcher.add_handler(covid_handler)
     
-    austin_handler = CommandHandler('austin', austin)
+    austin_handler = CommandHandler('name1', name1)
     dispatcher.add_handler(austin_handler)
     
-    yoong_handler = CommandHandler('yoong', yoong)
+    yoong_handler = CommandHandler('name2', name2)
     dispatcher.add_handler(yoong_handler)
     
-    andy_handler = CommandHandler('andy', andy)
+    andy_handler = CommandHandler('name3', name3)
     dispatcher.add_handler(andy_handler)
     
-    hung_handler = CommandHandler('hung', hung)
+    hung_handler = CommandHandler('name4', name4)
     dispatcher.add_handler(hung_handler)
     
-    lg_handler = CommandHandler('lg', lg)
+    lg_handler = CommandHandler('name5', name5)
     dispatcher.add_handler(lg_handler)
     
-    dang_handler = CommandHandler('dang', dang)
+    dang_handler = CommandHandler('name6', name6)
     dispatcher.add_handler(dang_handler)
     
-    duong_handler = CommandHandler('duong', duong)
+    duong_handler = CommandHandler('name7', name7)
     dispatcher.add_handler(duong_handler)
     
     error_handler = CommandHandler('error', error)
