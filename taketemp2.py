@@ -10,6 +10,9 @@ import logging
 import telegram.ext
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 
+HEROKU_TOKEN = 'token'
+HEROKU_APPNAME = 'appname'
+
 def start(update, context):
     context.bot.send_message(chat_id=update.effective_chat.id, 
                              text="I'm a bot that reminds you to take temperature!")
@@ -92,10 +95,10 @@ def daily_reminder(update, context):
     context.job_queue.run_daily(daily_reminder_message, time = datetime.time(15,14,00))
 
 if __name__ == "__main__":
-    updater = Updater(token='1230478984:AAEVrxbJxXo3vpX2ChbpM5qcDxLFdusziNQ', use_context=True)
+    updater = Updater(token=HEROKU_TOKEN, use_context=True)
     dispatcher = updater.dispatcher
-    TOKEN = "1230478984:AAEVrxbJxXo3vpX2ChbpM5qcDxLFdusziNQ"
-    NAME = "taketemp"
+    TOKEN = HEROKU_TOKEN
+    NAME = HEROKU_APPNAME
     
     # Port is given by Heroku
     PORT = os.environ.get('PORT')
